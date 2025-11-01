@@ -1,7 +1,7 @@
 # 🎬 **Flix API**
 
 API REST desenvolvida em **Django Rest Framework** para o gerenciamento de **filmes**, **atores**, **gêneros** e **reviews**.  
-Inclui autenticação segura de usuários via **JWT (JSON Web Token)**.
+Inclui autenticação segura de usuários via **JWT (JSON Web Token)** e documentação automática via **Swagger / Redoc**.
 
 ---
 
@@ -12,7 +12,8 @@ Inclui autenticação segura de usuários via **JWT (JSON Web Token)**.
 - 👤 Registro e login de usuários  
 - 🎞️ Associação entre filmes, gêneros e elenco  
 - 📝 Sistema de avaliações (reviews)  
-- ⚙️ Estrutura totalmente baseada em **RESTful APIs**
+- ⚙️ Estrutura totalmente baseada em **RESTful APIs**  
+- 📘 Documentação automática com **OpenAPI 3 (drf-spectacular)**
 
 ---
 
@@ -21,7 +22,8 @@ Inclui autenticação segura de usuários via **JWT (JSON Web Token)**.
 - **Python 3.10+**  
 - **Django 5+**  
 - **Django Rest Framework (DRF)**  
-- **Simple JWT (Autenticação)**  
+- **drf-spectacular** *(documentação Swagger/OpenAPI 3)*  
+- **Simple JWT** *(autenticação)*  
 - **SQLite3** *(banco de dados padrão, facilmente substituível por PostgreSQL ou MySQL)*
 
 ---
@@ -61,7 +63,7 @@ pip install -r requirements.txt
 python manage.py migrate
 ```
 
-### 5️⃣ Crie um superusuário (opcional, para acessar o admin)
+### 5️⃣ Crie um superusuário (opcional)
 
 ```bash
 python manage.py createsuperuser
@@ -87,7 +89,7 @@ Após criar um usuário, obtenha o token de acesso enviando um `POST` para:
 /api/token/
 ```
 
-Com o corpo:
+**Corpo da requisição:**
 ```json
 {
   "username": "seu_usuario",
@@ -95,7 +97,7 @@ Com o corpo:
 }
 ```
 
-Você receberá:
+**Resposta:**
 ```json
 {
   "refresh": "token_refresh",
@@ -107,6 +109,18 @@ Use o token `access` no cabeçalho das requisições:
 ```
 Authorization: Bearer <token_access>
 ```
+
+---
+
+## 📘 **Documentação Swagger / OpenAPI**
+
+A documentação da API é gerada automaticamente pelo **drf-spectacular**, seguindo o padrão **OpenAPI 3**.
+
+Após iniciar o servidor, acesse:
+
+- 📄 **Schema JSON:** [http://127.0.0.1:8000/api/schema/](http://127.0.0.1:8000/api/schema/)  
+- 📘 **Swagger UI:** [http://127.0.0.1:8000/api/docs/](http://127.0.0.1:8000/api/docs/)  
+- 📗 **Redoc:** [http://127.0.0.1:8000/api/redoc/](http://127.0.0.1:8000/api/redoc/)
 
 ---
 
@@ -125,7 +139,7 @@ POST /movies/
 {
   "title": "Inception",
   "release_year": 2010,
-  "genres": [1, 2],
+  "genres": 1,
   "actors": [3, 5]
 }
 ```
@@ -176,39 +190,6 @@ POST /reviews/
 
 ---
 
-## 🧩 **Estrutura do Projeto**
-
-```
-flix_api/
-│
-├── flix_api/          # Configurações principais do projeto Django
-├── movies/            # Aplicação responsável por filmes, gêneros e atores
-├── reviews/           # Aplicação de avaliações (reviews)
-├── users/             # Aplicação de autenticação e usuários
-│
-├── manage.py
-└── requirements.txt
-```
-
----
-
-## 🧪 **Testes**
-
-Para executar os testes automatizados:
-```bash
-python manage.py test
-```
-
----
-
-## 🧠 **Melhorias Futuras**
-
-- Implementar paginação e filtros avançados nas listagens  
-- Adicionar upload de imagens de filmes e atores  
-- Documentação automática com **Swagger / drf-spectacular**  
-- Integração com banco de dados PostgreSQL  
-
----
 
 ## 📄 **Licença**
 
